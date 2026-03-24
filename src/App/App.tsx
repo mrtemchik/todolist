@@ -1,19 +1,12 @@
 import React from 'react';
 import '../App.css';
-import {v1} from "uuid";
-import {TaskType, Todolist} from "../Todolist";
+import {Todolist} from "../Todolist";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {useTodolists} from "./hooks/useTodolists";
 import {useTasks} from "./hooks/useTasks";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
-
-export type  FilterValuesType = "all" | "completed" | "active";
-export type TodolistType = {
-    id: string,
-    title: string,
-    filter: FilterValuesType
-}
+import {TaskStatuses, TaskType} from "../api/todolists-api";
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
@@ -51,7 +44,7 @@ function App() {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        Я люблю Заю(Ксюшу)
+                        Todolists
                     </Typography>
                     <Button color={"inherit"}>Login </Button>
                 </Toolbar>
@@ -67,10 +60,10 @@ function App() {
                         todolists.map((tl) => {
                             let tasksForTodolist = tasksObj[tl.id];
                             if (tl.filter === "completed") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true)
+                                tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.Completed)
                             }
                             if (tl.filter === "active") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false)
+                                tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.InProgress)
                             }
                             return <Grid>
                                 <Paper style={{padding: "10px"}}>

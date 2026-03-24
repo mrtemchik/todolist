@@ -1,18 +1,13 @@
 import React from 'react';
 import '../App.css';
-import {TaskType, Todolist} from "../Todolist";
+import { Todolist} from "../Todolist";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 
 import useAppWithRedux from "./hooks/useAppWithRedux";
+import {TaskType} from "../api/todolists-api";
 
-export type  FilterValuesType = "all" | "completed" | "active";
-export type TodolistType = {
-    id: string,
-    title: string,
-    filter: FilterValuesType
-}
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
@@ -30,7 +25,7 @@ function AppWithRedux() {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        Я люблю Заю(Ксюшу)
+                        Todolists
                     </Typography>
                     <Button color={"inherit"}>Login </Button>
                 </Toolbar>

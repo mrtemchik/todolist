@@ -1,19 +1,86 @@
 import {useState} from "react";
 import {todolistId1, todolistId2} from "../id-utils";
 import {v1} from "uuid";
-import {TaskStateType} from "../App";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskStateType} from "../../AppWithReducers";
 
 export function useTasks() {
     let [tasksObj, setTasks] = useState<TaskStateType>({
         [todolistId1]: [
-            {id: v1(), title: "CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "HTML", isDone: false},
-            {id: v1(), title: "React", isDone: true}
+            {
+                description: ' ',
+                title: "CSS",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: "string",
+            },
+            {
+                description: '',
+                title: "JS",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: "string",
+            },
+            {
+                description: '',
+                title: "HTML",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: "string",
+            },
+            {
+                description: '',
+                title: "React",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: "string",
+            }
         ],
         [todolistId2]: [
-            {id: v1(), title: "Book", isDone: false},
-            {id: v1(), title: "Milt", isDone: true},
+            {
+                description: '',
+                title: "Book",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId2,
+                order: 0,
+                addedDate: "string",
+            },
+            {
+                description: '',
+                title: "Milk",
+                status: TaskStatuses.Completed,
+                priority: TaskPriorities.Low,
+                startDate: "string",
+                deadline: "string",
+                id: v1(),
+                todoListId: todolistId2,
+                order: 0,
+                addedDate: "string",
+            }
         ]
     });
 
@@ -25,18 +92,25 @@ export function useTasks() {
     }
 
     function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, isDone: false};
+        let task = {id: v1(), title: title, description: '',
+            status: TaskStatuses.New,
+            priority: TaskPriorities.Low,
+            startDate: "string",
+            deadline: "string",
+            todoListId: todolistId,
+            order: 0,
+            addedDate: "string",};
         let tasks = tasksObj[todolistId];
         let newTasks = [task, ...tasks];
         tasksObj[todolistId] = newTasks;
         setTasks({...tasksObj});
     }
 
-    function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
+    function changeStatus(taskId: string, status: TaskStatuses, todolistId: string) {
         let tasks = tasksObj[todolistId];
         let task = tasks.find((t) => t.id === taskId);
         if (task) {
-            task.isDone = isDone;
+            task.status = status;
             setTasks({...tasksObj});
         }
     }
