@@ -4,11 +4,11 @@ import {AppRootState} from "../../state/store";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, FilterValuesType,
+    changeTodolistTitleAC, fetchTodolistsTC, FilterValuesType,
     removeTodolistAC, TodolistDomainType
 } from "../../state/todolist-reducer";
 import {TaskStateType} from "../AppWithRedux";
-import {useCallback, } from 'react';
+import {useCallback, useEffect,} from 'react';
 import {TaskStatuses} from "../../api/todolists-api";
 
 const useAppWithRedux = () => {
@@ -16,7 +16,9 @@ const useAppWithRedux = () => {
     const dispatch = useDispatch();
     const todolists = useSelector<AppRootState, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TaskStateType>(state => state.tasks)
-
+    useEffect(()=>{
+       dispatch(fetchTodolistsTC());
+    },[])
 
     const removeTask= useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskAC(id, todolistId));
