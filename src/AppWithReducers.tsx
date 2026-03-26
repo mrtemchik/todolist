@@ -11,7 +11,7 @@ import {
     changeTodolistTitleAC,
     addTodolistAC, FilterValuesType
 } from "./state/todolist-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer, updateTaskTC} from "./state/tasks-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "./api/todolists-api";
 import {todolistId1, todolistId2} from "./App/id-utils";
 
@@ -114,18 +114,18 @@ function AppWithReducer() {
         dispatchToTaskReduser(removeTaskAC(id, todolistId));
     }
 
-    function addTask(title: string, todolistId: string) {
-        dispatchToTaskReduser(addTaskAC(title, todolistId));
-    }
+    // function addTask(title: string, todolistId: string) {
+    //     dispatchToTaskReduser(addTaskAC(title, todolistId));
+    // }
 
     function changeStatus(id: string, status: TaskStatuses, todolistId: string) {
-        dispatchToTaskReduser(changeTaskStatusAC(id, status, todolistId));
+        dispatchToTaskReduser(updateTaskAC(id, {status}, todolistId));
     }
 
-    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
-        dispatchToTaskReduser(action);
-    }
+    // function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+    //     const action = updateTaskTC(id, {title:newTitle}, todolistId);
+    //     dispatchToTaskReduser(action);
+    // }
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
         dispatchToTodolistsReducer(changeTodolistFilterAC(value, todolistId));
@@ -138,10 +138,10 @@ function AppWithReducer() {
     }
 
 
-    function addTodolist(title: string) {
-        dispatchToTaskReduser(addTodolistAC(title));
-        dispatchToTodolistsReducer(addTodolistAC(title));
-    }
+    // function addTodolist(title: string) {
+    //     dispatchToTaskReduser(addTodolistAC(title));
+    //     dispatchToTodolistsReducer(addTodolistAC(title));
+    // }
 
     function changeTodolistTitle(id: string, newTitle: string) {
         dispatchToTodolistsReducer(changeTodolistTitleAC(id, newTitle))
