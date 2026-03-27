@@ -1,11 +1,13 @@
 import '../App.css';
 import { Todolist} from "../Todolist";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, Grid, IconButton, LinearProgress, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 
 import useAppWithRedux from "./hooks/useAppWithRedux";
 import {TaskType} from "../api/todolists-api";
+import {ErrorSnackbar} from "../components/ErrosSnackBar/ErrosSnackbar";
+import {useAppSelector} from "../state/store";
 
 
 export type TaskStateType = {
@@ -14,19 +16,23 @@ export type TaskStateType = {
 }
 
 function AppWithRedux() {
+    const status= useAppSelector(state=>state.app.status)
     const {todolists,addTodolist,tasks,changeStatus, removeTask,changeFilter,addTask,changeTaskTitle,removeTodolist,changeTodolistTitle }= useAppWithRedux()
     return (
         <div className="App">
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge={"start"} color="inherit" aria-label={"menu"}>
                         <Menu/>
+
                     </IconButton>
                     <Typography variant="h6">
                         Todolists
                     </Typography>
                     <Button color={"inherit"}>Login </Button>
                 </Toolbar>
+                {status==='loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{padding: "20px"}}>
                 <Grid container>
