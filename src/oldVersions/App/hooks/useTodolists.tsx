@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {todolistId1, todolistId2} from "../id-utils";
 import {v1} from "uuid";
-import {FilterValuesType, TodolistDomainType} from "../../state/todolist-reducer";
+import {FilterValuesType, TodolistDomainType} from "../../../state/todolist-reducer";
 
 export function useTodolists(onTodolistRemoved: (id: string) => void,
                              onTodolistAdded: (id: string) => void) {

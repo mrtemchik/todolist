@@ -3,7 +3,7 @@ import {todolistReducer} from "./todolist-reducer";
 import {tasksReducer} from "./tasks-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
-import {appReducer} from "../AppWithRedux/app-reducer";
+import {appReducer} from "../app/AppWithRedux/app-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,

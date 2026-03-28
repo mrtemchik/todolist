@@ -1,16 +1,16 @@
 import {
     addTaskTC,
     removeTaskTC, updateTaskTC
-} from "../../state/tasks-reducer";
-import {useAppDispatch, useAppSelector} from "../../state/store";
+} from "../../../state/tasks-reducer";
+import {useAppDispatch, useAppSelector} from "../../../state/store";
 import {
     addTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleTC, fetchTodolistsTC, FilterValuesType,
     removeTodolistTC,
-} from "../../state/todolist-reducer";
+} from "../../../state/todolist-reducer";
 import {useCallback, useEffect,} from 'react';
-import {TaskStatuses} from "../../api/todolists-api";
+import {TaskStatuses} from "../../../api/todolists-api";
 
 const useAppWithRedux = () => {
 
@@ -38,7 +38,7 @@ const useAppWithRedux = () => {
     },[dispatch]);
 
     const changeFilter= useCallback(function (value: FilterValuesType, todolistId: string) {
-        dispatch(changeTodolistFilterAC(value, todolistId));
+        dispatch(changeTodolistFilterAC(todolistId, value));
     },[dispatch]);
 
     const removeTodolist = useCallback( (todolistId: string) => {

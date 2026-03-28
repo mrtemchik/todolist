@@ -1,77 +1,52 @@
-import React from 'react';
 import '../App.css';
-import {Todolist} from "../Todolist";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import { Todolist} from "../../Todolist";
+import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {AppBar, Button, Container, Grid, IconButton, LinearProgress, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {useTodolists} from "./hooks/useTodolists";
-import {useTasks} from "./hooks/useTasks";
-import {AddItemForm} from "../AddItemForm/AddItemForm";
-import {TaskStatuses, TaskType} from "../api/todolists-api";
+import {TaskType} from "../../api/todolists-api";
+import {ErrorSnackbar} from "../../components/ErrosSnackBar/ErrosSnackbar";
+import {useAppSelector} from "../../state/store";
+import useAppWithRedux from "./hooks/useAppWithRedux";
+
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
-
-function App() {
-
-    const {
-        tasksObj,
-        removeTask,
-        addTask,
-        changeStatus,
-        changeTaskTitle,
-        completelyRemoveTasksForTodolist,
-        addStateForNewTodolist,
-    } = useTasks();
-
-    let {
-        todolists,
-        changeFilter,
-        removeTodolist,
-        addTodolist,
-        changeTodolistTitle,
-    } = useTodolists(completelyRemoveTasksForTodolist, addStateForNewTodolist);
-
-
-
-
+function AppWithRedux() {
+    const status= useAppSelector(state=>state.app.status)
+    const {todolists,addTodolist,tasks,changeStatus, removeTask,changeFilter,addTask,changeTaskTitle,removeTodolist,changeTodolistTitle }= useAppWithRedux()
     return (
         <div className="App">
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge={"start"} color="inherit" aria-label={"menu"}>
                         <Menu/>
+
                     </IconButton>
                     <Typography variant="h6">
                         Todolists
                     </Typography>
                     <Button color={"inherit"}>Login </Button>
                 </Toolbar>
+                {status==='loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{padding: "20px"}}>
                 <Grid container>
-                    <AddItemForm addItem={(title: string) => {
-                        addTodolist(title)
-                    }}/>
+                    <AddItemForm addItem={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>
                     {
                         todolists.map((tl) => {
-                            let tasksForTodolist = tasksObj[tl.id];
-                            if (tl.filter === "completed") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.Completed)
-                            }
-                            if (tl.filter === "active") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.InProgress)
-                            }
-                            return <Grid>
+                            const allTodolistTasks = tasks[tl.id];
+
+                            return <Grid key={tl.id}>
                                 <Paper style={{padding: "10px"}}>
                                     <Todolist
-                                        key={tl.id}
                                         id={tl.id}
                                         title={tl.title}
-                                        tasks={tasksForTodolist}
+                                        tasks={allTodolistTasks}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
@@ -87,9 +62,8 @@ function App() {
                     }
                 </Grid>
             </Container>
-
         </div>
     );
 }
 
-export default App;
+export default AppWithRedux;

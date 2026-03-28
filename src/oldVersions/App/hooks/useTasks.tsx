@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {todolistId1, todolistId2} from "../id-utils";
 import {v1} from "uuid";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/todolists-api";
 import {TaskStateType} from "../../AppWithReducers";
 
 export function useTasks() {

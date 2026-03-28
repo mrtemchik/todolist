@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App/App';
+import App from './oldVersions/App/App';
 import reportWebVitals from './reportWebVitals';
-import AppWithReducer from "./AppWithReducers";
-import AppWithRedux from "./AppWithRedux/AppWithRedux";
+import AppWithReducer from "./oldVersions/AppWithReducers";
+import AppWithRedux from "./app/AppWithRedux/AppWithRedux";
 import {store} from "./state/store";
 import {Provider} from "react-redux";
 

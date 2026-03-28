@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
-import './App.css';
+import '../app/App.css';
 import {v1} from "uuid";
-import {AddItemForm} from "./AddItemForm/AddItemForm";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {
@@ -10,9 +10,9 @@ import {
     todolistReducer,
     changeTodolistTitleAC,
     addTodolistAC, FilterValuesType
-} from "./state/todolist-reducer";
-import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer, updateTaskTC} from "./state/tasks-reducer";
-import {TaskPriorities, TaskStatuses, TaskType} from "./api/todolists-api";
+} from "../state/todolist-reducer";
+import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer, updateTaskTC} from "../state/tasks-reducer";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
 import {todolistId1, todolistId2} from "./App/id-utils";
 
 
@@ -31,84 +31,7 @@ function AppWithReducer() {
         {id: todolistId2, title: "What to buy", filter: "all", addedDate:"", order:1,entitystatus:"idle"}
     ]);
 
-    let [tasksObj, dispatchToTaskReduser] = useReducer(tasksReducer, {
-        [todolistId1]: [
-            {
-                description: ' ',
-                title: "CSS",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId1,
-                order: 0,
-                addedDate: "string",
-            },
-            {
-                description: '',
-                title: "JS",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId1,
-                order: 0,
-                addedDate: "string",
-            },
-            {
-                description: '',
-                title: "HTML",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId1,
-                order: 0,
-                addedDate: "string",
-            },
-            {
-                description: '',
-                title: "React",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId1,
-                order: 0,
-                addedDate: "string",
-            }
-        ],
-        [todolistId2]: [
-            {
-                description: '',
-                title: "Book",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId2,
-                order: 0,
-                addedDate: "string",
-            },
-            {
-                description: '',
-                title: "Milk",
-                status: TaskStatuses.Completed,
-                priority: TaskPriorities.Low,
-                startDate: "string",
-                deadline: "string",
-                id: v1(),
-                todoListId: todolistId2,
-                order: 0,
-                addedDate: "string",
-            }
-        ]
-    });
+    let [tasksObj, dispatchToTaskReduser] = useReducer(tasksReducer, {});
 
     function removeTask(id: string, todolistId: string) {
         dispatchToTaskReduser(removeTaskAC(id, todolistId));
@@ -128,7 +51,7 @@ function AppWithReducer() {
     // }
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        dispatchToTodolistsReducer(changeTodolistFilterAC(value, todolistId));
+        dispatchToTodolistsReducer(changeTodolistFilterAC(todolistId, value));
     }
 
 
