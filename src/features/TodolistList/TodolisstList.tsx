@@ -29,15 +29,13 @@ export const Todolists: React.FC = (props) => {
                         return <Grid key={tl.id}>
                             <Paper style={{padding: "10px"}}>
                                 <Todolist
-                                    id={tl.id}
-                                    title={tl.title}
+                                    todolist={tl}
                                     tasks={allTodolistTasks}
                                     removeTask={removeTask}
                                     changeFilter={changeFilter}
                                     addTask={addTask}
                                     changeTaskStatus={changeStatus}
                                     changeTaskTitle={changeTaskTitle}
-                                    filter={tl.filter}
                                     removeTodoList={removeTodolist}
                                     changeTodolistTitle={changeTodolistTitle}
                                 />
