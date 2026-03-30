@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './oldVersions/App/App';
+import FirstApp from './oldVersions/App/FirstApp';
 import reportWebVitals from './reportWebVitals';
 import AppWithReducer from "./oldVersions/AppWithReducers";
-import AppWithRedux from "./app/AppWithRedux/AppWithRedux";
+import App from "./app/AppWithRedux/App";
 import {store} from "./state/store";
 import {Provider} from "react-redux";
 
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <Provider store={store}>
-    <AppWithRedux />
+    <App />
     </Provider>
 );
 
