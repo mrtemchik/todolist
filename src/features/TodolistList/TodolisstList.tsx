@@ -2,8 +2,12 @@ import useAppWithRedux from "../../app/AppWithRedux/hooks/useAppWithRedux";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./todolist/Todolist";
+import {Navigate} from "react-router-dom";
+import {useAppSelector} from "../../state/store";
 
-export const Todolists: React.FC = (props) => {
+
+export const Todolists: React.FC = () => {
+
     const {
         todolists,
         addTodolist,
@@ -16,6 +20,10 @@ export const Todolists: React.FC = (props) => {
         removeTodolist,
         changeTodolistTitle
     } = useAppWithRedux()
+    const isLoggedIn= useAppSelector(state => state.auth.isLoggedIn);
+    if (!isLoggedIn) {
+        return <Navigate to="/login" />;
+    }
 
     return (
         <><Grid container>

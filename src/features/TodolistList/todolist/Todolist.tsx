@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpanType";
-import {Button, IconButton} from "@mui/material";
+import {Button, Grid, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 import {FilterValuesType, TodolistDomainType} from "../../../state/todolist-reducer";
-import {useAppDispatch} from "../../../state/store";
+import {useAppDispatch, useAppSelector} from "../../../state/store";
 import {fetchTasksTC} from "../../../state/tasks-reducer";
+import {Navigate} from "react-router-dom";
 
 
 type PropsType = {
@@ -26,9 +27,12 @@ type PropsType = {
 export const Todolist = React.memo(function(props: PropsType) {
 
     const dispatch = useAppDispatch();
+    const isLoggedIn= useAppSelector(state => state.auth.isLoggedIn);
     useEffect(()=>{
+
         dispatch(fetchTasksTC(props.todolist.id));
-    },[dispatch, props.todolist.id])
+    },[dispatch, isLoggedIn, props.todolist.id])
+
     const onAllClickHandler = useCallback(() => props.changeFilter("all", props.todolist.id),[props]);
     const onActiveClickHandler = useCallback(() => props.changeFilter("active", props.todolist.id),[props]);
     const onCompletedClickHandler = useCallback(() => props.changeFilter("completed", props.todolist.id),[props]);
@@ -51,6 +55,7 @@ export const Todolist = React.memo(function(props: PropsType) {
     if (props.todolist.filter === "active") {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New)
     }
+
     return (
         <div>
             <h3><EditableSpan title={props.todolist.title} onChange={changeTodolistTitle}/>

@@ -9,7 +9,7 @@ import {
     changeTodolistTitleTC, fetchTodolistsTC, FilterValuesType,
     removeTodolistTC,
 } from "../../../state/todolist-reducer";
-import {useCallback, useEffect,} from 'react';
+import  {useCallback, useEffect} from 'react';
 import {TaskStatuses} from "../../../api/todolists-api";
 
 const useAppWithRedux = () => {
@@ -17,7 +17,11 @@ const useAppWithRedux = () => {
     const dispatch = useAppDispatch();
     const todolists = useAppSelector(state => state.todolists)
     const tasks = useAppSelector(state => state.tasks)
+    const isLoggedIn= useAppSelector(state => state.auth.isLoggedIn);
     useEffect(()=>{
+        if(!isLoggedIn){
+        return;
+        }
        dispatch(fetchTodolistsTC());
     },[dispatch])
 
@@ -52,6 +56,7 @@ const useAppWithRedux = () => {
     const changeTodolistTitle =useCallback ((id: string, newTitle: string)=> {
         dispatch(changeTodolistTitleTC(id, newTitle));
     }, [dispatch]);
+
 
     return {todolists, addTodolist,tasks,changeStatus,removeTask,changeFilter,addTask,changeTaskTitle,removeTodolist,changeTodolistTitle}
 }
