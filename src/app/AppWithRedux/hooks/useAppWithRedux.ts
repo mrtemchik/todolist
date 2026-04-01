@@ -23,7 +23,7 @@ const useAppWithRedux = () => {
         return;
         }
        dispatch(fetchTodolistsTC());
-    },[dispatch])
+    },[dispatch, isLoggedIn])
 
     const removeTask= useCallback(function (id: string, todolistId: string) {
      dispatch(removeTaskTC(id, todolistId))
@@ -42,7 +42,7 @@ const useAppWithRedux = () => {
     },[dispatch]);
 
     const changeFilter= useCallback(function (value: FilterValuesType, todolistId: string) {
-        dispatch(changeTodolistFilterAC(todolistId, value));
+        dispatch(changeTodolistFilterAC({id:todolistId, filter: value}));
     },[dispatch]);
 
     const removeTodolist = useCallback( (todolistId: string) => {
