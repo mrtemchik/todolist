@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {todolistId1, todolistId2} from "../id-utils";
 import {v1} from "uuid";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../api/todolists-api";
-import {TaskStateType} from "../../AppWithReducers";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {} from "../../AppWithReducers";
+import {TaskStateType} from "../../../state/tasks-reducer";
 
 export function useTasks() {
     let [tasksObj, setTasks] = useState<TaskStateType>({

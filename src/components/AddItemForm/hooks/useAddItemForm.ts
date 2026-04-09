@@ -1,7 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 
 export const useAddItemForm = (
-    onItemAdded:(title:string)=>void
+    onItemAdded: (title: string) => void
 ) => {
     let [newTaskTitle, setNewTaskTitle] = useState("");
     let [error, setError] = useState<string | null>(null);
@@ -9,7 +9,7 @@ export const useAddItemForm = (
         setNewTaskTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(error!==null){
+        if (error !== null) {
             setError(null);
         }
         if (e.charCode === 13) {
@@ -17,23 +17,23 @@ export const useAddItemForm = (
                 setError("Title is required");
                 return;
             }
-           onItemAdded(newTaskTitle);
+            onItemAdded(newTaskTitle);
             setNewTaskTitle("");
         }
     }
-    const addItem = () => {
+    const addItemHandler = () => {
         if (newTaskTitle.trim() === "") {
             setError("Title is required");
             return;
         }
-       onItemAdded(newTaskTitle);
+        onItemAdded(newTaskTitle);
         setNewTaskTitle("");
     }
-    return{
+    return {
         newTaskTitle,
         onKeyPressHandler,
         onChangeHandler,
-        addItem,
+        addItemHandler,
         error,
     }
 }
